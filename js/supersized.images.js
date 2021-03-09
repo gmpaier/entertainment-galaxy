@@ -33,7 +33,7 @@ jQuery(function ($) {
       {
         image: "./images/slider/image1.jpg",
         title:
-          'Your Gateway to the Movie Universe <div class="slidedescription">Movies allow us to see the world in new ways. They challenge us and inspire us. Take a journey through the movie universe. </div>',
+          'Your Gateway to the Entertainment Universe <div class="slidedescription">Movies allow us to see the world in new ways. They challenge us and inspire us. Take a journey through the movie universe. </div>',
         thumb: "",
         url: "http://themes.tvda.eu/",
       },
