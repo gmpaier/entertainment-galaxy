@@ -14,7 +14,12 @@ function searchTmdb (){
       .then(function (data) {
           console.log(data);
           for (let i = 0; i < data.results.length; i++){
-            $(".list-group").append('<button type="button" class="list-group-item list-group-item-action short" value="'+ data.results[i].id + '">' + data.results[i].title + ' (' + data.results[i].media_type + ')</button>');
+            if (data.results[i].media_type === "movie"){
+              $(".list-group").append('<button type="button" class="list-group-item list-group-item-action short" value="'+ data.results[i].id + '">' + data.results[i].title + ' (' + data.results[i].media_type + ')</button>');
+            }
+            else if (data.results[i].media_type === "tv"){
+              $(".list-group").append('<button type="button" class="list-group-item list-group-item-action short" value="'+ data.results[i].id + '">' + data.results[i].name + ' (' + data.results[i].media_type + ')</button>');
+            }
           }
 
           return data;
