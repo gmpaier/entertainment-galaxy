@@ -40,28 +40,20 @@ jQuery(function ($) {
       {
         image: "./images/slider/image3.jpg",
         title:
-          'Search <div class="slidedescription">Search through movies and tv shows at the power of your fingertips</div>',
+          'Search <div class="slidedescription">Search through movies and tv shows at the power of your fingertips. We find movies for you to watch.</div>',
         thumb: "",
         url: "http://themes.tvda.eu/",
       },
       {
         image: "./images/slider/image2.jpg",
         title:
-          'Play <div class="slidedescription">Play and search through the soundtrack music to any movie or show you want.</div>',
-        thumb: "",
-        url: "http://themes.tvda.eu/",
-      },
-      {
-        image: "./images/slider/image4.jpg",
-        title:
-          'Entertain <div class="slidedescription">Test your knowledge! Are you a movie buff to the stars? Find out with some trivia fun that is entertaining at its finest!</div>',
+          'Play <div class="slidedescription">Do you ever want to know a title of a song that is playing within a movie or show? Search by movie, song, composer, performer to any movie or tv series.</div>',
         thumb: "",
         url: "http://themes.tvda.eu/",
       },
     ],
 
-    // Theme Options
-    progress_bar: 0, // Timer for each slide
+    progress_bar: 0,
     mouse_scrub: 0,
   });
 });
