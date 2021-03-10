@@ -12,17 +12,25 @@
 
 + This project provided the entire team with an invaluable experience in site-building and design as well as first-hand experience in interactions with big data companies. Its more than safe to say that this prooject empowered everyone involved with a boost in programming skills and knowledge that is applicable in real world career situations.
 
-## Installion 
-
-+ 1.0 Concept/HTML Construction
-+ 2.0 CSS Construction 
-+ 3.0 JavaScrpit Manipulation 
-+ 4.0 Deployment 
-
 # Usage 
 
++ Before using this site, please visit [the CORS proxy](http://cors-anywhere.herokuapp.com/corsdemo) we use and request access. We use this proxy to get around CORS issues with calling the TuneFind API.
+
++ As we are using a trial version of the TuneFind API, we only have a limited amount of their data available. For a full list of populated endpoints, please see endpoints.txt
+
++ Use the search bar to search for a movie or television show. You will be presented with a list of results.
+
++ Click on a result to pull up more information. If you select a movie, you will immediately be presented with soundtrack data.
+
++ If a show is selected, select a season, then select and episode. You will be presented with the episode title and a description, as well as the episode's soundtrack data below.
+
++ Click the back button to return to the prior search stage. For example if you click on a movie, hitting back will return you to search results; if you hit back when an episode is selected, you will be returned to the list of episodes.
 
 
+# Deployment
+
+Repository - https://github.com/gmpaier/entertainment-galaxy
+Live Github Page - https://gmpaier.github.io/entertainment-galaxy/
 
 # Credits 
 
