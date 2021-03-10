@@ -74,6 +74,7 @@ function getTmdb (){
           $("#overview").text(data.overview);
           $("#back-btn").show();
          if (media === 'movie'){
+           $("#result-list").empty();
            $("#title").text(data.title);
           return getMovieMusic(id);
          }

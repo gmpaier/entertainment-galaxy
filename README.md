@@ -30,6 +30,7 @@
 # Deployment
 
 Repository - https://github.com/gmpaier/entertainment-galaxy
+
 Live Github Page - https://gmpaier.github.io/entertainment-galaxy/
 
 # Credits 
@@ -60,16 +61,15 @@ URL Link: https://www.themoviedb.org/?language=en-US
 Tunefind 
 URL Link: https://www.tunefind.com/
 
+# Screenshots
 
++ [Main Page](./images/home_img.png)
 
-# Screenshot 
-```md
-    ![alt text](assets/images/)
-    ```
++ [Search Result](./images/movie_result.png)
+
++ [Soundtrack Result](./images/soundtrack_result.png)
 
 # License 
-
-+ 
 
 + Copyright (c)  2021 Entertainment Galaxy®️ ALL RIGHTS RESERVED 
 
