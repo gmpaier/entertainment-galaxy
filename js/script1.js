@@ -1,11 +1,12 @@
 //variable and function declaration
-
+  //Variables used in session storage
 var searchData = [];
 var seasonData = [];
 var episodeData = [];
 var storage = [searchData, seasonData, episodeData];
 var storageKey = -1;
 
+//performs a search on the tmdb api, filtering for only movie and tv results
 function searchTmdb (event){
   event.preventDefault();
     $("#result-list").empty();
@@ -52,6 +53,7 @@ function searchTmdb (event){
       })
 }   
 
+//gets specific movie or tv show and puts information on screen. If tv show, triggers appendSeason()
 function getTmdb (){
     storageKey++;
     var key = "537dc0254ee4eb9747eecc6e3667403f";
@@ -77,7 +79,13 @@ function getTmdb (){
          }
          else if (media === 'tv'){
            $("#title").text(data.name);
-          return getSeasons(id);
+           $("#result-list").empty();
+           for (let i = 0; i < data.seasons.length; i++){
+             appendSeason(id, i);
+             seasonData[i] = id;
+           }
+           sessionStorage.setItem("storage", JSON.stringify(storage));
+           return data;
          }
          else{
            return data;
@@ -87,7 +95,8 @@ function getTmdb (){
         console.error('There has been a problem with your fetch operation:', error);
       })
 }   
-    
+
+//calls tunefind api to display the soundtrack for a movie
 function getMovieMusic (id){
   var requestUrl = "https://cors-anywhere.herokuapp.com/https://45fedfc9.api.tunefind.com/api/v2/movie/" + id + "?id-type=tmdb";
     fetch(requestUrl, {
@@ -112,41 +121,16 @@ function getMovieMusic (id){
       })
 }   
 
-function getSeasons (id){
-  var key = "537dc0254ee4eb9747eecc6e3667403f";
-  var requestUrl = "https://api.themoviedb.org/3/show/" + id + "?api_key=" + key + "&language=en-US";
-    fetch(requestUrl)
-    .then(function (response) {
-        if (response.status !== 200){
-          throw new Error('network response not okay');
-        }
-
-        return response.json();
-    })
-      .then(function (data) {
-          console.log(data);
-          $("#result-list").empty();
-          let title;
-          for (let i = 0; i < data.seasons.length; i++){
-            title = data.seasons[i].name;
-            appendSeason(id, title, i);
-            seasonData[i] = {id: id, title: title};
-          }
-          sessionStorage.setItem("storage", JSON.stringify(storage));
-          return data;
-      })
-      .catch(function (error) {
-        console.error('There has been a problem with your fetch operation:', error);
-      })
-}   
-
-/*Left off here*/
+//triggers when a season is selected, brings up a list of episodes for that season
 function getEpisode (){
   storageKey++;
+  var key = "537dc0254ee4eb9747eecc6e3667403f";
   var value = JSON.parse(this.value);
+  console.log(value);
   var id = value.id;
   var season = value.season;
-  var requestUrl = "https://api.themoviedb.org/3/show/" + id + "?api_key=" + key + "&language=en-US";
+  console.log(season);
+  var requestUrl = "https://api.themoviedb.org/3/tv/" + id + "/season/" + season + "?api_key=" + key + "&language=en-US";
     fetch(requestUrl)
     .then(function (response) {
         if (response.status !== 200){
@@ -170,12 +154,36 @@ function getEpisode (){
       })
 }
 
-function getEpisodeMusic (){
-  storageKey++
+function episodeDetails (){
+  storageKey++;
+  var key = "537dc0254ee4eb9747eecc6e3667403f";
   var value = JSON.parse(this.value);
   var id = value.id;
   var season = value.season;
-  var episode = value.episodes
+  var episode = value.episodes;
+  var requestUrl = "https://api.themoviedb.org/3/tv/" + id + "/season/" + season + "/episode/" + episode + "?api_key=" + key + "&language=en-US";
+    fetch(requestUrl)
+    .then(function (response) {
+        if (response.status !== 200){
+          throw new Error('network response not okay');
+        }
+
+        return response.json();
+    })
+      .then(function (data) {
+          console.log(data);
+          $("#result-list").empty();
+          $("#ep-title").text("Episode " + episode + ": " + data.name);
+          $("#description").text(data.overview);
+          return getEpisodeMusic(id, season, episode);
+      })
+      .catch(function (error) {
+        console.error('There has been a problem with your fetch operation:', error);
+      })
+}
+
+//calls tunefind api to display soundtrack for an episode of a TV show
+function getEpisodeMusic (id, season, episode){
   var requestUrl = "https://cors-anywhere.herokuapp.com/https://45fedfc9.api.tunefind.com/api/v2/show/" + id + "/season-" + season + "/" + episode + "?id-type=tmdb";
     fetch(requestUrl, {
         headers: {
@@ -198,6 +206,7 @@ function getEpisodeMusic (){
       })
 }
 
+//fills table with song data from tunefind call
 function displaySongs (data){
   $("#result-list").empty();
   $("#song-list").empty();
@@ -213,21 +222,27 @@ function displaySongs (data){
   $("#song-list").append("</tbody>");
 }
 
+//creates a list element button for search results
 function appendTitle(id, title, media){
   $("#result-list").append('<li><button type="button" class="result" value=\'{"id": "'+ id + '", "media": "'+ media + '"}\'>' + title + ' (' + media + ')</button></li>');
 }
 
-function appendSeason(id, title, i){
-  $("#result-list").append('<li><button type="button" class="season" value=\'{"id": "'+ id + '", "season": "'+ (i+1) + '", "title": "' + title + '"}\'> Season: ' + (i+1) + ' - ' + title + '</button></li>');
+//creates a list element button for seasons of a show
+function appendSeason(id, i){
+  $("#result-list").append('<li><button type="button" class="season" value=\'{"id": "'+ id + '", "season": "'+ (i+1) + '"}\'> Season: ' + (i+1) + '</button></li>');
 }
 
+//creates a list element button for an episode of a season
 function appendEpisode(id, season, i){
   $("#result-list").append('<li><button type="button" class="episode" value=\'{"id": "'+ id + '", "season": "'+ season + '", "episodes": "'+ (i+1) + '"}\'> Episodes: ' + (i+1) + '</button></li>');
 }
 
+//triggered by the back button, returns to prior "phase" of results. 
+  //eg if you currently have a list of a season's episodes, will return you to a list of seasons.
+  //utilizes session storage.
 function goBack(){
   let storedData = JSON.parse(sessionStorage.getItem("storage"));
-  console.log(storedData);
+  console.log(storageKey);
   let data = storedData[storageKey];
   $("#result-list").empty();
   switch (storageKey) {
@@ -247,13 +262,15 @@ function goBack(){
       break;
     case 1:
       for (let i = 0; i < data.length; i++){
-        let id = data[i].id;
-        let title = data[i].title
-        appendSeason(id, title, i);
+        let id = data[i];
+        appendSeason(id, i);
       }
       storageKey--;
       break;
     case 2:
+      $("#song-list").empty();
+      $("#ep-title").text("");
+      $("#description").text("");
       for (let i = 0; i < data.length; i++){
         let id = data[i].id;
         let season = data[i].season;
@@ -270,5 +287,5 @@ $("#back-btn").hide();
 $("#search-btn").on("click", searchTmdb);
 $(document).on("click", ".result", getTmdb);
 $(document).on("click", ".season", getEpisode);
-$(document).on("click", ".episode", getEpisodeMusic);
+$(document).on("click", ".episode", episodeDetails);
 $(document).on("click", "#back-btn", goBack)
