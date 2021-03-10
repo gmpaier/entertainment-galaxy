@@ -1,0 +1,541 @@
+html,
+body {
+  height: 100%;
+}
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+caption,
+tfoot,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+
+/* table {
+  border-collapse: collapse;
+  border-spacing: 0;
+} */
+@font-face {
+  font-family: "BebasNeueRegular";
+  src: url("../fonts/BebasNeue-webfont.eot");
+  src: url("../fonts/BebasNeue-webfont.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/BebasNeue-webfont.woff") format("woff"),
+    url("../fonts/BebasNeue-webfont.ttf") format("truetype"),
+    url("../fonts/BebasNeue-webfont.svg#BebasNeueRegular") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+::-moz-selection {
+  background: #25b8b8;
+  color: white;
+}
+::selection {
+  background: #25b8b8;
+  color: white;
+}
+
+body {
+  background: white;
+  font: 13px "Open Sans", sans-serif;
+  color: #1c1f26;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+}
+
+.embed-container {
+  position: relative;
+  padding-bottom: 56.25%;
+  padding-top: 30px;
+  height: 0;
+  overflow: hidden;
+}
+
+.embed-container iframe,
+.embed-container object,
+.embed-container embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+img.scaleimg {
+  width: 100%;
+  height: auto;
+}
+
+.hidden {
+  display: none;
+}
+
+.vertical-text {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.pattern {
+  background: url(../images/pattern.png);
+  width: 100%;
+  position: absolute;
+}
+
+/*--------------------------------------------------------
+Typography
+--------------------------------------------------------*/
+
+h1 {
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+h1 {
+  font-family: "BebasNeueRegular", sans-serif;
+  font-size: 86px;
+  text-transform: uppercase;
+  position: relative;
+  margin-bottom: 7px;
+}
+
+h1.white {
+  color: white;
+}
+
+p {
+  margin-top: 10px;
+}
+
+a {
+  color: #25b8b8;
+  text-decoration: none;
+  transition: all 0.3s linear;
+  -moz-transition: all 0.3s linear;
+  -webkit-transition: all 0.3s linear;
+  -o-transition: all 0.3s linear;
+}
+
+a:hover {
+  color: #868991;
+}
+
+p.lead {
+  font-size: 20px;
+  color: #868991;
+  line-height: 1.4;
+}
+
+hr {
+  margin: 25px 0;
+  border: 0;
+  border-bottom: 1px solid #f0f2f5;
+}
+
+/*--------------------------------------------------------
+Navigation
+--------------------------------------------------------*/
+
+nav {
+  background: url(../images/nav-bg.png);
+  width: 100%;
+  position: relative;
+  z-index: 1000;
+  height: 50px;
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+
+.links {
+  height: 50px;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.links li {
+  display: inline;
+  margin: 0 15px 0 0;
+}
+
+.links a {
+  font-family: "Oswald", sans-serif;
+  font-size: 18px;
+  color: white;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.links a:visited {
+  color: white;
+}
+
+.links a:hover {
+  color: #25b8b8;
+}
+
+.links a.to-top span {
+  display: none;
+}
+
+.links a.to-top i {
+  position: absolute;
+  top: 16px;
+  margin-left: 22px;
+  width: 18px;
+  height: 18px;
+  opacity: 0.3;
+  background: #757c8c;
+  color: #1c1f26;
+  font-size: 11px;
+  line-height: 1.2;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+  -o-transition: all 0.3s;
+}
+
+.links a.to-top:hover i {
+  opacity: 1;
+}
+
+.selectnav {
+  display: none;
+}
+
+/*--------------------------------------------------------
+Parallax
+--------------------------------------------------------*/
+
+#parallax1,
+#parallax2,
+#parallax3 {
+  width: 100%;
+  height: 440px;
+  background-color: #1c1f26;
+  position: relative;
+  overflow: hidden;
+}
+
+#parallax1 .vertical-text,
+#parallax2 .vertical-text,
+#parallax3 .vertical-text,
+#parallax1 .pattern,
+#parallax2 .pattern,
+#parallax3 .pattern {
+  height: 440px;
+}
+
+/*Parallax1------------------------------------------*/
+
+.bg1 {
+  background: url(../images/parallax/teaser1.jpg) 50% 50% fixed repeat-y;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  position: absolute;
+  background-size: 110%;
+}
+
+p.prlx-quote {
+  font-family: "BebasNeueRegular", sans-serif;
+  font-size: 48px;
+  line-height: 1;
+  margin-bottom: 20px;
+  color: white;
+  text-align: center;
+  text-transform: uppercase;
+  z-index: 200;
+  margin: 0 10% 0 10%;
+}
+
+.prlx-author {
+  height: 24px;
+  background-image: url(../images/quote.png);
+  background-position: left top;
+  background-repeat: no-repeat;
+  background: -Webkit-image-set(
+      url(../images/quote.png) 1x,
+      url(../images/quote@2x.png) 2x
+    )
+    left top no-repeat; /* Image for Retina */
+  width: auto;
+  padding-left: 40px;
+  font-size: 11px;
+  font-weight: 600;
+  color: white;
+  text-transform: uppercase;
+  line-height: 0.9;
+  position: relative;
+  margin-top: 26px;
+  left: 42%;
+  z-index: 200;
+}
+
+/*Parallax2------------------------------------------*/
+
+.bg2 {
+  background: url(../images/parallax/teaser2.jpg) top center fixed repeat-y;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  position: absolute;
+  background-size: 120%;
+}
+
+.twitter-author {
+  text-transform: uppercase;
+  font-family: "BebasNeueRegular", sans-serif;
+  font-size: 24px;
+}
+
+.tweet {
+  font-family: "Oswald", sans-serif;
+  font-size: 24px;
+  color: white;
+  line-height: 1.4;
+  margin: 7px 0 12px 0;
+}
+
+.tweet-date {
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.tweet-date a {
+  font-size: 11px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+/*--------------------------------------------------------
+Content
+--------------------------------------------------------*/
+
+.page {
+  padding-top: 64px;
+  padding-bottom: 80px;
+  position: relative;
+  background: white;
+}
+
+.one-text {
+  font-size: 20px;
+  line-height: 1.5;
+}
+
+.description {
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.columns .img-wrp {
+  position: relative;
+}
+
+.img-wrp img {
+  display: block;
+}
+
+.overlay-wrp {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  display: none;
+  height: 100%;
+  width: 100%;
+}
+
+.overlay-wrp .overlay {
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+  height: 100%;
+  width: 100%;
+}
+
+.overlay {
+  background: #b0b825;
+}
+
+/*Homepage------------------------------------------*/
+
+#homepage {
+  background: url(../images/pattern.png);
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  margin-bottom: -50px;
+}
+
+#homepage .container {
+  height: 100%;
+}
+
+.logo {
+  top: 40px;
+  position: absolute;
+  opacity: 0;
+  filter: alpha(opacity=50);
+}
+
+.slider-text {
+  position: absolute;
+  overflow: hidden;
+  bottom: 110px;
+  min-height: 220px;
+}
+
+#slidecaption {
+  overflow: hidden;
+  float: left;
+  color: white;
+  font: 92px/0.9 "BebasNeueRegular", Helvetica, Arial, sans-serif;
+  margin: 0 20px 0 0;
+}
+
+.slidedescription {
+  font: 600 14px "Open Sans", Helvetica, Arial, sans-serif;
+  margin: 13px 0 0 0;
+}
+
+.line {
+  border-bottom: solid white 1px;
+  margin-bottom: 36px;
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+
+.column .img-wrp {
+  position: relative;
+  margin: 52px 0 14px 0;
+}
+
+.full-width {
+  background: #f0f2f5;
+  padding: 60px 0px 60px 0px;
+  margin: 53px 0px 54px 0px;
+}
+/*Misc Styling-----------------------------*/
+#inline {
+  display: inline;
+}
+
+#rescale {
+  width: 140px;
+  padding-left: 16px;
+}
+
+.poster-image {
+  max-width: 400px;
+}
