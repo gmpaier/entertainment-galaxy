@@ -532,3 +532,12 @@ Content
   padding: 60px 0px 60px 0px;
   margin: 53px 0px 54px 0px;
 }
+/*Misc Styling-----------------------------*/
+#inline {
+  display: inline;
+}
+
+#rescale {
+  width: 140px;
+  padding-left: 16px;
+}

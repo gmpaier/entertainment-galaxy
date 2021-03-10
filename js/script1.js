@@ -6,7 +6,8 @@ var episodeData = [];
 var storage = [searchData, seasonData, episodeData];
 var storageKey = -1;
 
-function searchTmdb (){
+function searchTmdb (event){
+  event.preventDefault();
     $("#result-list").empty();
     var key = "537dc0254ee4eb9747eecc6e3667403f";
     var title = $("#movie-input").val();
@@ -24,18 +25,21 @@ function searchTmdb (){
           console.log(data);
           var media;
           var id;
-          var title
+          var title;
+          var img;
           for (let i = 0; i < data.results.length; i++){
             media = data.results[i].media_type;
             id = data.results[i].id;
             if (media === 'movie'){
               title = data.results[i].title;
+              appendTitle(id, title, media);
+              searchData[i] = {id: id, title: title, media: media};
             }
             else if (media === 'tv'){
              title = data.results[i].name;
+             appendTitle(id, title, media);
+             searchData[i] = {id: id, title: title, media: media};
             }
-            appendTitle(id, title, media);
-            searchData[i] = {id: id, title: title, media: media};
           }
           sessionStorage.setItem("storage", JSON.stringify(storage));
           return data;
@@ -59,7 +63,7 @@ function getTmdb (){
       })
       .then(function (data) {
           console.log(data);
-          $("#poster").attr("src", "https://image.tmdb.org/t/p/w500/"+data["poster_path"]);
+          $("#poster").attr("src", "https://image.tmdb.org/t/p/original"+data["poster_path"]);
           $("#overview").text(data.overview)
          if (media === 'movie'){
            $("#title").text(data.title);
