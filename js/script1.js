@@ -113,12 +113,9 @@ function getMovieMusic (id){
 }   
 
 function getSeasons (id){
-  var requestUrl = "https://cors-anywhere.herokuapp.com/https://45fedfc9.api.tunefind.com/api/v2/show/" + id + "?id-type=tmdb";
-    fetch(requestUrl, {
-        headers: {
-          authorization: "Basic NDVmZWRmYzkwNjQ1MzEyZjFlNzJkYzZjNGIzNTk5ZjY6MDYxYWY4Mzg5ZmU1MTQ0ZjI0YTE0Y2MxOGMyZmRkNTI=",
-        }
-      })
+  var key = "537dc0254ee4eb9747eecc6e3667403f";
+  var requestUrl = "https://api.themoviedb.org/3/show/" + id + "?api_key=" + key + "&language=en-US";
+    fetch(requestUrl)
     .then(function (response) {
         if (response.status !== 200){
           throw new Error('network response not okay');
@@ -129,9 +126,11 @@ function getSeasons (id){
       .then(function (data) {
           console.log(data);
           $("#result-list").empty();
+          let title;
           for (let i = 0; i < data.seasons.length; i++){
-            appendSeason(id, i);
-            seasonData[i] = id;
+            title = data.seasons[i].name;
+            appendSeason(id, title, i);
+            seasonData[i] = {id: id, title: title};
           }
           sessionStorage.setItem("storage", JSON.stringify(storage));
           return data;
@@ -141,17 +140,14 @@ function getSeasons (id){
       })
 }   
 
+/*Left off here*/
 function getEpisode (){
   storageKey++;
   var value = JSON.parse(this.value);
   var id = value.id;
   var season = value.season;
-  var requestUrl = "https://cors-anywhere.herokuapp.com/https://45fedfc9.api.tunefind.com/api/v2/show/" + id + "/season-" + season + "?id-type=tmdb";
-    fetch(requestUrl, {
-        headers: {
-          authorization: "Basic NDVmZWRmYzkwNjQ1MzEyZjFlNzJkYzZjNGIzNTk5ZjY6MDYxYWY4Mzg5ZmU1MTQ0ZjI0YTE0Y2MxOGMyZmRkNTI=",
-        }
-      })
+  var requestUrl = "https://api.themoviedb.org/3/show/" + id + "?api_key=" + key + "&language=en-US";
+    fetch(requestUrl)
     .then(function (response) {
         if (response.status !== 200){
           throw new Error('network response not okay');
@@ -221,8 +217,8 @@ function appendTitle(id, title, media){
   $("#result-list").append('<li><button type="button" class="result" value=\'{"id": "'+ id + '", "media": "'+ media + '"}\'>' + title + ' (' + media + ')</button></li>');
 }
 
-function appendSeason(id, i){
-  $("#result-list").append('<li><button type="button" class="season" value=\'{"id": "'+ id + '", "season": "'+ (i+1) + '"}\'> Season: ' + (i+1) + '</button></li>');
+function appendSeason(id, title, i){
+  $("#result-list").append('<li><button type="button" class="season" value=\'{"id": "'+ id + '", "season": "'+ (i+1) + '", "title": "' + title + '"}\'> Season: ' + (i+1) + ' - ' + title + '</button></li>');
 }
 
 function appendEpisode(id, season, i){
@@ -251,8 +247,9 @@ function goBack(){
       break;
     case 1:
       for (let i = 0; i < data.length; i++){
-        let id = data[i]
-        appendSeason(id, i);
+        let id = data[i].id;
+        let title = data[i].title
+        appendSeason(id, title, i);
       }
       storageKey--;
       break;
