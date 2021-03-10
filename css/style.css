@@ -54,14 +54,8 @@ fieldset,
 form,
 label,
 legend,
-table,
 caption,
-tbody,
 tfoot,
-thead,
-tr,
-th,
-td,
 article,
 aside,
 canvas,
@@ -126,10 +120,10 @@ q:after {
   content: none;
 }
 
-table {
+/* table {
   border-collapse: collapse;
   border-spacing: 0;
-}
+} */
 @font-face {
   font-family: "BebasNeueRegular";
   src: url("../fonts/BebasNeue-webfont.eot");
@@ -540,4 +534,8 @@ Content
 #rescale {
   width: 140px;
   padding-left: 16px;
+}
+
+.poster-image {
+  max-width: 400px;
 }

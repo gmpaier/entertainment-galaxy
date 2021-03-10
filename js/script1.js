@@ -17,7 +17,7 @@ function searchTmdb (event){
     fetch(requestUrl)
       .then(function (response) {
         if (response.status !== 200){
-            alert("invalid address");
+          throw new Error('network response not okay');
         }
         return response.json();
       })
@@ -27,44 +27,50 @@ function searchTmdb (event){
           var id;
           var title;
           var img;
+          let j = 0;
           for (let i = 0; i < data.results.length; i++){
             media = data.results[i].media_type;
             id = data.results[i].id;
             if (media === 'movie'){
               title = data.results[i].title;
               appendTitle(id, title, media);
-              searchData[i] = {id: id, title: title, media: media};
+              searchData[j] = {id: id, title: title, media: media};
+              j++;
             }
             else if (media === 'tv'){
              title = data.results[i].name;
              appendTitle(id, title, media);
-             searchData[i] = {id: id, title: title, media: media};
+             searchData[j] = {id: id, title: title, media: media};
+             j++;
             }
           }
           sessionStorage.setItem("storage", JSON.stringify(storage));
           return data;
       })
+      .catch(function (error) {
+        console.error('There has been a problem with your fetch operation:', error);
+      })
 }   
 
 function getTmdb (){
     storageKey++;
-    $("#back-btn").show();
     var key = "537dc0254ee4eb9747eecc6e3667403f";
     var value = JSON.parse(this.value);
     var id = value.id;
     var media = value.media;
-    var requestUrl = "https://api.themoviedb.org/3/movie/" + id + "?api_key=" + key + "&language=en-US";
+    var requestUrl = "https://api.themoviedb.org/3/"+ media + "/" + id + "?api_key=" + key + "&language=en-US";
     fetch(requestUrl)
       .then(function (response) {
         if (response.status !== 200){
-            alert("invalid address");
+          throw new Error('network response not okay');
         }
         return response.json();
       })
       .then(function (data) {
           console.log(data);
           $("#poster").attr("src", "https://image.tmdb.org/t/p/original"+data["poster_path"]);
-          $("#overview").text(data.overview)
+          $("#overview").text(data.overview);
+          $("#back-btn").show();
          if (media === 'movie'){
            $("#title").text(data.title);
           return getMovieMusic(id);
@@ -77,6 +83,9 @@ function getTmdb (){
            return data;
          }
       })
+      .catch(function (error) {
+        console.error('There has been a problem with your fetch operation:', error);
+      })
 }   
     
 function getMovieMusic (id){
@@ -88,7 +97,7 @@ function getMovieMusic (id){
       })
     .then(function (response) {
         if (response.status !== 200){
-            alert("invalid address");
+          throw new Error('network response not okay');
         }
 
         return response.json();
@@ -97,6 +106,9 @@ function getMovieMusic (id){
           console.log(data);
       
           return displaySongs(data);
+      })
+      .catch(function (error) {
+        console.error('There has been a problem with your fetch operation:', error);
       })
 }   
 
@@ -109,7 +121,7 @@ function getSeasons (id){
       })
     .then(function (response) {
         if (response.status !== 200){
-            alert("invalid address");
+          throw new Error('network response not okay');
         }
 
         return response.json();
@@ -123,6 +135,9 @@ function getSeasons (id){
           }
           sessionStorage.setItem("storage", JSON.stringify(storage));
           return data;
+      })
+      .catch(function (error) {
+        console.error('There has been a problem with your fetch operation:', error);
       })
 }   
 
@@ -139,7 +154,7 @@ function getEpisode (){
       })
     .then(function (response) {
         if (response.status !== 200){
-            alert("invalid address");
+          throw new Error('network response not okay');
         }
 
         return response.json();
@@ -153,6 +168,9 @@ function getEpisode (){
           }
           sessionStorage.setItem("storage", JSON.stringify(storage));
           return data;
+      })
+      .catch(function (error) {
+        console.error('There has been a problem with your fetch operation:', error);
       })
 }
 
@@ -170,7 +188,7 @@ function getEpisodeMusic (){
       })
     .then(function (response) {
         if (response.status !== 200){
-            alert("invalid address");
+          throw new Error('network response not okay');
         }
 
         return response.json();
@@ -178,6 +196,9 @@ function getEpisodeMusic (){
       .then(function (data) {
           console.log(data);      
           return displaySongs(data);
+      })
+      .catch(function (error) {
+        console.error('There has been a problem with your fetch operation:', error);
       })
 }
 
@@ -210,10 +231,12 @@ function appendEpisode(id, season, i){
 
 function goBack(){
   let storedData = JSON.parse(sessionStorage.getItem("storage"));
+  console.log(storedData);
   let data = storedData[storageKey];
   $("#result-list").empty();
   switch (storageKey) {
     case 0:
+      $("#back-btn").hide();
       $("#song-list").empty();
       $("#title").text("");
       $("#overview").text("");
@@ -225,7 +248,6 @@ function goBack(){
         appendTitle(id, title, media);
       }
       storageKey--;
-      $("#back-btn").hide();
       break;
     case 1:
       for (let i = 0; i < data.length; i++){
