@@ -51,13 +51,6 @@ jQuery(function ($) {
         thumb: "",
         url: "http://themes.tvda.eu/",
       },
-      {
-        image: "./images/slider/image4.jpg",
-        title:
-          'Entertain <div class="slidedescription">Test your knowledge! Are you a movie buff to the stars? Find out with some trivia fun that is entertaining at its finest!</div>',
-        thumb: "",
-        url: "http://themes.tvda.eu/",
-      },
     ],
 
     // Theme Options
