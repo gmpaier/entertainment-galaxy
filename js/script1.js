@@ -55,7 +55,7 @@ function searchTmdb (event){
 
 //gets specific movie or tv show and puts information on screen. If tv show, triggers appendSeason()
 function getTmdb (){
-    storageKey++;
+    storageKey = 0;
     var key = "537dc0254ee4eb9747eecc6e3667403f";
     var value = JSON.parse(this.value);
     var id = value.id;
