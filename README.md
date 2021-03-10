@@ -1,4 +1,4 @@
-# entertainment-galaxy
+# ENTERTAINMENT GALAXY
 
 ## Description 
 
